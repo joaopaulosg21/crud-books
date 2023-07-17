@@ -1,5 +1,6 @@
 package aprendendo.api.crudbooks;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +16,7 @@ class CrudBooksApplicationTests {
 	private WebTestClient webClient;
 
 	@Test
+	@BeforeEach
 	public void createBookTest() {
 		Book book = new Book("test title","test author","test description");
 
@@ -45,11 +47,22 @@ class CrudBooksApplicationTests {
 		Book expected = new Book(8L,"updated title","updated author","updated description");
 
 		webClient.patch()
-				.uri("/books/8")
+				.uri("/books/1")
 				.bodyValue(book)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
 				.toString().equals(expected.toString());
+	}
+
+	@Test
+	public void deleteBookTest() {
+
+		webClient.delete()
+				.uri("/books/1")
+				.exchange()
+				.expectStatus().isOk()
+				.expectBodyList(Book.class)
+				.hasSize(4);
 	}
 }
