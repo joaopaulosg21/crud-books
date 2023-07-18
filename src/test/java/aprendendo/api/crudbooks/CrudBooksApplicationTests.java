@@ -65,4 +65,16 @@ class CrudBooksApplicationTests {
 				.expectBodyList(Book.class)
 				.hasSize(4);
 	}
+
+	@Test
+	public void findByIdTest() {
+		Book book = new Book("test title","test author","test description");
+
+		webClient.get()
+			.uri("/books/2")
+			.exchange()
+			.expectStatus().isOk()
+			.expectBody()
+			.toString().equals(book.toString());
+	}
 }

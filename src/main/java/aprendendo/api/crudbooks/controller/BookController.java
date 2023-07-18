@@ -43,4 +43,9 @@ public class BookController {
     public ResponseEntity<List<Book>> update(@PathVariable Long bookId) {
         return ResponseEntity.ok(bookService.delete(bookId));
     }
+
+    @GetMapping("/{bookId}")
+    public ResponseEntity<Book> findById(@PathVariable Long bookId) {
+        return ResponseEntity.ok(bookService.findById(bookId));
+    }
 }

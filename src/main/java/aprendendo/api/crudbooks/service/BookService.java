@@ -42,4 +42,8 @@ public class BookService {
 
         return this.find();
     }
+
+    public Book findById(Long id) {
+        return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+    }
 }
