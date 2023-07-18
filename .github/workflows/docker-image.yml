@@ -28,4 +28,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build and push to docker hub
-        run: ls -la
+        run: docker build . --file Dockerfile --tag crud-books-test:latest && docker push ${{ secrets.DOCKERHUB_USERNAME }}/crud-books-test
